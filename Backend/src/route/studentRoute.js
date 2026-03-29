@@ -1,12 +1,16 @@
 const express = require('express');
-const { getAllStudent } = require('../controller/studentController');
+const { getAllStudent, createStudent } = require('../controller/studentController');
 
 const route = express.Router()
 
 
-// get api
+// Method GET - get All Students
 
 route.get('/getAllStudent', getAllStudent)
+
+// Method POST - Create new Student
+
+route.post('/createNewStudent', createStudent)
 
 
 module.exports = route;
