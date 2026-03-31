@@ -43,4 +43,29 @@ const createStudent = async (req, res)=>{
     }
 }
 
-module.exports = {getAllStudent, createStudent}
+
+const updateStudent = async (req, res)=>{
+    try {
+        let {id} = req.params;
+        let {name, email, age, course} = req.body;
+
+        if(!name || !email || !age || !course){
+            return res.status(404).json({success: false, message: "All Field Required..."})
+        }
+
+        let [existingStudent] = await db.query(`SELECT * FROM student WHERE id = ?`, [id]);
+
+        if(existingStudent.length === 0){
+            return res.status(404).json({success: false, message: "Student not found..."})
+        }
+
+        await db.query(`UPDATE student SET name = ?, email = ?, age = ?, course = ? WHERE id = ?`, [name, email, age, course, id]);
+
+        return res.status(200).json({success:true, message: "Student Data Updated..."})
+
+    } catch (error) {
+        console.log({success:false, message:`${error}, Server Error!`})
+    }
+}
+
+module.exports = {getAllStudent, createStudent, updateStudent}

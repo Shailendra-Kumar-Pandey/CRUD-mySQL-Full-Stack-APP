@@ -12,5 +12,9 @@ route.get('/getAllStudent', getAllStudent)
 
 route.post('/createNewStudent', createStudent)
 
+// methhod PUT - update Student
+
+route.put('/updateStudent/:id', updateStudent)
+
 
 module.exports = route;
